@@ -1,11 +1,11 @@
 package main
 
 import (
-	"users/database"
+	"log"
 	"users/handlers"
+	"users/pkg/database"
 	"users/repositories"
 	"users/services"
-	"log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -36,7 +36,9 @@ func main() {
 
 	router.POST("/api/register", h.AddRegisteHandler)
 	router.POST("/api/login", h.AddLoginHandler)
-	
+	// router.PATCH("/api/reset-password", h.ResetPasswordHandler)
+	// router.POST("/api/request-reset-password", h.RequestResetPasswordHandler)
+
 	err = router.Run(":8080")
 	if err != nil {
 		log.Fatal(err.Error())
