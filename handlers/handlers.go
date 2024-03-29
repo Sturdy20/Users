@@ -32,16 +32,16 @@ func (h *handler) AddRegisteHandler(c *gin.Context) {
 	if err != nil {
 		switch err.Error() {
 		case "failed to insert into members table (API Register)":
-			c.JSON(http.StatusInternalServerError, gin.H{"status": "Error", "message": "Registration failed. Please try again later.", "code": http.StatusInternalServerError, "details": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"status": "Error", "message": "Registration failed. Please try again later.","details": err.Error()})
 		case "email already exists in the system":
-			c.JSON(http.StatusBadRequest, gin.H{"status": "Error", "message": "Sorry, this email address is already in use for registration.", "code": http.StatusBadRequest, "details": err.Error()})
+			c.JSON(http.StatusConflict, gin.H{"status": "Error", "message": "Sorry, this email address is already in use for registration.", "details": err.Error()})
 
 		default:
-			c.JSON(http.StatusInternalServerError, gin.H{"status": "Error", "message": err.Error(), "code": http.StatusInternalServerError, "details": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"status": "Error", "message": err.Error(),  "details": err.Error()})
 		}
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"status": "OK", "message": "Registration completed successfully", "code": http.StatusCreated, "data": registerResp})
+	c.JSON(http.StatusCreated, gin.H{"status": "OK", "message": "Registration successfully","data": registerResp})
 }
 
 func (h *handler) AddLoginHandler(c *gin.Context) {
